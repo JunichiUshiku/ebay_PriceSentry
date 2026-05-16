@@ -1,0 +1,167 @@
+/* eBay Price Sentry — shared design tokens */
+:root {
+  /* Neutral */
+  --bg: #FFFFFF;
+  --surface: #F9FAFB;
+  --surface-2: #F3F4F6;
+  --border: #E5E7EB;
+  --border-strong: #D1D5DB;
+  --text-1: #111827;
+  --text-2: #6B7280;
+  --text-3: #9CA3AF;
+  --text-disabled: #D1D5DB;
+
+  /* Sidebar */
+  --sb-bg: #0F172A;
+  --sb-bg-hover: #1E293B;
+  --sb-text: #E2E8F0;
+  --sb-text-active: #FFFFFF;
+  --sb-active: #2563EB;
+  --sb-active-soft: #1E40AF;
+
+  /* Primary */
+  --primary: #2563EB;
+  --primary-hover: #1D4ED8;
+  --primary-active: #1E40AF;
+  --primary-subtle: #DBEAFE;
+  --primary-subtle-hover: #BFDBFE;
+
+  /* Status */
+  --success: #10B981;
+  --success-bg: #D1FAE5;
+  --success-text: #065F46;
+  --success-border: #A7F3D0;
+
+  --warning: #F59E0B;
+  --warning-bg: #FEF3C7;
+  --warning-text: #92400E;
+  --warning-border: #FDE68A;
+
+  --error: #EF4444;
+  --error-bg: #FEE2E2;
+  --error-text: #991B1B;
+  --error-border: #FECACA;
+
+  --neutral-bg: #F3F4F6;
+  --neutral-text: #374151;
+
+  /* Data */
+  --positive: #10B981;
+  --negative: #EF4444;
+  --highlight: #FBBF24;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(16,24,40,.04), 0 1px 1px rgba(16,24,40,.04);
+  --shadow-md: 0 4px 8px rgba(16,24,40,.06), 0 2px 4px rgba(16,24,40,.04);
+
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --radius-badge: 4px;
+}
+
+* { box-sizing: border-box; }
+body, html { margin: 0; padding: 0; }
+
+.ds-root {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-1);
+  background: var(--surface);
+  font-size: 14px;
+  line-height: 1.5;
+  font-feature-settings: 'tnum' on, 'cv11' on;
+  -webkit-font-smoothing: antialiased;
+}
+.ds-root .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-feature-settings: 'tnum' on; }
+.ds-root .num { font-variant-numeric: tabular-nums; }
+
+/* Sidebar (shared) */
+.sb {
+  width: 240px; flex-shrink: 0;
+  background: var(--sb-bg); color: var(--sb-text);
+  display: flex; flex-direction: column;
+  height: 100%;
+}
+.sb-logo { display: flex; align-items: center; gap: 10px; padding: 18px 20px; color: #fff; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+.sb-logo-icon { width: 28px; height: 28px; border-radius: 7px; background: linear-gradient(135deg, #3B82F6, #1E40AF); display: grid; place-items: center; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+.sb-nav { padding: 8px; display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.sb-item { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 6px; color: var(--sb-text); font-size: 14px; cursor: pointer; }
+.sb-item:hover { background: var(--sb-bg-hover); }
+.sb-item.active { background: var(--sb-active); color: #fff; font-weight: 500; }
+.sb-item .badge { margin-left: auto; background: rgba(255,255,255,.14); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
+.sb-item.active .badge { background: rgba(255,255,255,.22); }
+.sb-foot { padding: 12px; border-top: 1px solid #1E293B; display: flex; align-items: center; gap: 10px; color: var(--sb-text); font-size: 13px; }
+
+/* Topbar */
+.tb { height: 64px; background: #fff; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; padding: 0 24px; }
+.tb-search { flex: 1; max-width: 480px; height: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; gap: 8px; padding: 0 12px; color: var(--text-3); font-size: 13px; }
+.tb-search kbd { margin-left: auto; font-family: inherit; font-size: 11px; background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; color: var(--text-2); }
+.tb-spacer { flex: 1; }
+.tb-right { display: flex; align-items: center; gap: 16px; }
+.tb-pill { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px; background: #fff; font-size: 13px; color: var(--text-1); cursor: pointer; }
+.tb-pill:hover { background: var(--surface); }
+.tb-sync { color: var(--text-2); font-size: 12px; display: flex; align-items: center; gap: 6px; }
+
+/* Toggle */
+.toggle { display: inline-flex; align-items: center; gap: 8px; }
+.toggle-track { width: 36px; height: 20px; border-radius: 999px; background: var(--text-3); position: relative; transition: 150ms ease-out; }
+.toggle-track.on { background: var(--success); }
+.toggle-thumb { position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: 150ms ease-out; box-shadow: 0 1px 2px rgba(0,0,0,.18); }
+.toggle-track.on .toggle-thumb { left: 18px; }
+
+/* Badge */
+.badge-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 4px; font-size: 12px; font-weight: 600; line-height: 1.4; }
+.badge-pill.success { background: var(--success-bg); color: var(--success-text); }
+.badge-pill.warning { background: var(--warning-bg); color: var(--warning-text); }
+.badge-pill.error   { background: var(--error-bg);   color: var(--error-text); }
+.badge-pill.neutral { background: var(--neutral-bg); color: var(--neutral-text); }
+.badge-pill.info    { background: var(--primary-subtle); color: var(--primary-active); }
+.badge-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .8; }
+
+/* Buttons */
+.btn { height: 32px; padding: 0 12px; border-radius: 6px; font-size: 13px; font-weight: 500; border: 1px solid var(--border); background: #fff; color: var(--text-1); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.btn:hover { background: var(--surface); }
+.btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.btn.primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+.btn.ghost { background: transparent; border-color: transparent; color: var(--text-2); }
+.btn.ghost:hover { background: var(--surface); color: var(--text-1); }
+.btn.sm { height: 28px; padding: 0 10px; font-size: 12px; }
+.btn.danger { color: var(--error-text); border-color: var(--error-border); background: var(--error-bg); }
+
+/* Card */
+.card { background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow-sm); }
+.card.subtle { background: var(--surface); box-shadow: none; }
+
+/* Table */
+.tbl { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+.tbl th { background: var(--surface); color: var(--text-2); font-weight: 600; font-size: 12px; text-transform: none; text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.tbl td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl tr:hover td { background: var(--surface); }
+.tbl tr.selected td { background: var(--primary-subtle); }
+.tbl tr.selected td:first-child { box-shadow: inset 4px 0 0 var(--primary); }
+.tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Dot */
+.dot-status { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.dot-status.success { background: var(--success); }
+.dot-status.warning { background: var(--warning); }
+.dot-status.error { background: var(--error); }
+.dot-status.neutral { background: var(--text-3); }
+
+/* Sparkline / mini */
+.spark-bar { display: inline-flex; gap: 2px; align-items: end; height: 24px; }
+.spark-bar > i { width: 4px; background: var(--primary); border-radius: 1px; display: block; }
+
+/* Icon (stroke 1.5) */
+.icon { width: 16px; height: 16px; stroke-width: 1.5; stroke: currentColor; fill: none; flex-shrink: 0; }
+.icon.lg { width: 20px; height: 20px; }
+.icon.xl { width: 24px; height: 24px; }
+
+/* Thumb */
+.thumb { width: 36px; height: 36px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--border); flex-shrink: 0; display: grid; place-items: center; color: var(--text-3); font-size: 10px; }
+.thumb.lg { width: 56px; height: 56px; }
+
+/* Inline meta */
+.muted { color: var(--text-2); }
+.tiny { font-size: 11px; }
+.sm { font-size: 12px; }

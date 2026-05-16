@@ -1,0 +1,143 @@
+{
+  "$schema": "https://schemas.figma.com/tokens/v1.json",
+  "fontFamily": {
+    "sans": ["Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+    "mono": ["JetBrains Mono", "SF Mono", "Menlo", "monospace"]
+  },
+  "fontSize": {
+    "xs": {
+      "value": "12px",
+      "lineHeight": "16px",
+      "usage": "small labels, badge text, helper text"
+    },
+    "sm": {
+      "value": "14px",
+      "lineHeight": "20px",
+      "usage": "table cells, secondary text, form helpers"
+    },
+    "base": {
+      "value": "16px",
+      "lineHeight": "24px",
+      "usage": "body text, primary content"
+    },
+    "lg": {
+      "value": "18px",
+      "lineHeight": "28px",
+      "usage": "card values (small)"
+    },
+    "xl": {
+      "value": "20px",
+      "lineHeight": "28px",
+      "usage": "section headings"
+    },
+    "2xl": {
+      "value": "24px",
+      "lineHeight": "32px",
+      "usage": "metric values"
+    },
+    "3xl": {
+      "value": "30px",
+      "lineHeight": "36px",
+      "usage": "large metric values, page titles"
+    }
+  },
+  "fontWeight": {
+    "normal": 400,
+    "medium": 500,
+    "semibold": 600,
+    "bold": 700
+  },
+  "letterSpacing": {
+    "tight": "-0.025em",
+    "normal": "0",
+    "wide": "0.025em"
+  },
+  "headings": {
+    "h1": {
+      "fontSize": "30px",
+      "fontWeight": 700,
+      "lineHeight": 1.2,
+      "letterSpacing": "-0.025em"
+    },
+    "h2": {
+      "fontSize": "24px",
+      "fontWeight": 600,
+      "lineHeight": 1.25
+    },
+    "h3": {
+      "fontSize": "20px",
+      "fontWeight": 600,
+      "lineHeight": 1.3
+    },
+    "h4": {
+      "fontSize": "18px",
+      "fontWeight": 600,
+      "lineHeight": 1.4
+    },
+    "h5": {
+      "fontSize": "16px",
+      "fontWeight": 600,
+      "lineHeight": 1.5
+    },
+    "h6": {
+      "fontSize": "14px",
+      "fontWeight": 600,
+      "lineHeight": 1.5,
+      "textTransform": "uppercase",
+      "letterSpacing": "0.05em"
+    }
+  },
+  "body": {
+    "default": {
+      "fontSize": "14px",
+      "fontWeight": 400,
+      "lineHeight": 1.5
+    },
+    "large": {
+      "fontSize": "16px",
+      "fontWeight": 400,
+      "lineHeight": 1.5
+    },
+    "small": {
+      "fontSize": "12px",
+      "fontWeight": 400,
+      "lineHeight": 1.4
+    }
+  },
+  "interactive": {
+    "button": {
+      "fontSize": "14px",
+      "fontWeight": 500,
+      "letterSpacing": "0"
+    },
+    "link": {
+      "fontSize": "14px",
+      "fontWeight": 500,
+      "textDecoration": "underline"
+    },
+    "input": {
+      "fontSize": "14px",
+      "fontWeight": 400
+    }
+  },
+  "data": {
+    "metricValue": {
+      "fontSize": "30px",
+      "fontWeight": 700,
+      "lineHeight": 1.1,
+      "letterSpacing": "-0.025em"
+    },
+    "tableNumeric": {
+      "fontFamily": "mono",
+      "fontSize": "14px",
+      "fontWeight": 500,
+      "fontFeatureSettings": "'tnum'"
+    },
+    "price": {
+      "fontFamily": "sans",
+      "fontSize": "14px",
+      "fontWeight": 600,
+      "fontFeatureSettings": "'tnum'"
+    }
+  }
+}
