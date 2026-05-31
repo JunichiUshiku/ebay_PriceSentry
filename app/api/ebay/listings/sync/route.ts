@@ -1,17 +1,21 @@
 import { NextResponse } from "next/server";
 import { syncEbayListings } from "@/lib/server/ebay";
 import { writeDevListings } from "@/lib/server/dev-store";
+import { persistSyncedDbListings } from "@/lib/server/listing-persistence";
 
 export const runtime = "nodejs";
 
 export async function POST() {
   try {
     const listings = await syncEbayListings();
-    await writeDevListings(listings);
+    const dbListings = await persistSyncedDbListings(listings);
+    if (!dbListings) await writeDevListings(listings);
+    const persistedListings = dbListings ?? listings;
     return NextResponse.json({
       ok: true,
-      count: listings.length,
-      listings,
+      count: persistedListings.length,
+      listings: persistedListings,
+      source: dbListings ? "database" : "dev-store",
       syncedAt: new Date().toISOString(),
     });
   } catch (error) {

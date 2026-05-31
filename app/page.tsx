@@ -172,6 +172,23 @@ export default function PriceSentryApp() {
     );
   }
 
+  function updateListingAndPersistSettings(next: Listing) {
+    updateListing(next.itemId, () => next);
+    void persistListingSettings(next);
+  }
+
+  async function persistListingSettings(listing: Listing) {
+    try {
+      await fetch(`/api/listings/${encodeURIComponent(listing.itemId)}/settings`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(listing.settings),
+      });
+    } catch {
+      // The UI remains usable if persistence is temporarily unavailable.
+    }
+  }
+
   function runPriceChecks(targetItemId?: string) {
     setIsRunning(true);
     const checkedAt = new Date().toLocaleTimeString("ja-JP", {
@@ -278,52 +295,40 @@ export default function PriceSentryApp() {
     }));
   }
 
-  function addListingFromUrl() {
+  async function addListingFromUrl() {
     const parsed = parseEbaySearchUrl(urlDraft);
     if (!parsed.ok) {
       setUrlMessage(parsed.error);
       return;
     }
 
-    const itemId = String(406875761000 + listings.length);
-    const listing: Listing = {
-      ...initialListings[0],
-      itemId,
-      title: `${parsed.value.searchKeyword} Search Registered`,
-      currentPrice: 0,
-      shipping: 0,
-      total: 0,
-      competitorTotal: null,
-      suggestedPrice: null,
-      changePercent: null,
-      status: "off",
-      reason: "URL登録済み・価格調整OFF",
-      lastCheckedAt: "-",
-      aiConfidence: null,
-      isOnSale: false,
-      listingStatus: "Active",
-      settings: {
-        ...initialListings[0].settings,
-        enabled: false,
-        searchUrl: urlDraft,
-        searchKeyword: parsed.value.searchKeyword,
-        requiredTitleKeywords: parsed.value.requiredTitleKeywords,
-        excludedTitleKeywords: parsed.value.excludedTitleKeywords,
-      },
-      competitors: [],
-    };
+    try {
+      const response = await fetch("/api/listings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ searchUrl: urlDraft }),
+      });
+      const data = (await response.json()) as {
+        listing?: Listing;
+        listings?: Listing[];
+        error?: string;
+      };
+      if (!response.ok || !data.listing) throw new Error(data.error ?? "登録に失敗しました");
 
-    setListings((current) => [listing, ...current]);
-    setSelectedItemId(itemId);
-    setUrlMessage("検索URLを解析して登録しました");
-    setIsAddOpen(false);
+      setListings(data.listings ?? [data.listing, ...listings]);
+      setSelectedItemId(data.listing.itemId);
+      setUrlMessage("検索URLを解析してDBに登録しました");
+      setIsAddOpen(false);
+    } catch (error) {
+      setUrlMessage(error instanceof Error ? error.message : "登録に失敗しました");
+    }
   }
 
   async function loadPersistedListings() {
     const response = await fetch("/api/listings", { cache: "no-store" });
     if (!response.ok) return;
     const data = (await response.json()) as { listings?: Listing[] };
-    if (data.listings?.length) {
+    if (Array.isArray(data.listings)) {
       setListings(data.listings);
       setSelectedItemId((current) => current ?? data.listings?.[0]?.itemId ?? null);
     }
@@ -500,7 +505,7 @@ export default function PriceSentryApp() {
                 : Math.min(listings.length - 1, index + 1);
             setSelectedItemId(listings[nextIndex].itemId);
           }}
-          onUpdate={(next) => updateListing(selectedListing.itemId, () => next)}
+          onUpdate={updateListingAndPersistSettings}
         />
       )}
 
